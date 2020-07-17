@@ -14,7 +14,12 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            //se crea todos los campos para la BDD
+            $table->bigIncrements('id_order');
+            $table->dateTime('fecha_pedido');
+            $table->dateTime('fecha_atencion');
+            $table->string('descripcion');
+            $table->string('novedades');
             $table->timestamps();
         });
     }
