@@ -18,15 +18,13 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('apellido');
-            $table->integer('cedula');
+            $table->string('cedula');
             $table->string('email')->unique();
             $table->string('direccion');
-            $table->integer('telefono');
+            $table->string('telefono');
             $table->string('tipo_usuario');
             $table->dateTime('fecha_registro');
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
