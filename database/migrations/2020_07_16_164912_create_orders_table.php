@@ -34,3 +34,4 @@ class CreateOrdersTable extends Migration
         Schema::dropIfExists('orders');
     }
 }
+    //chicos no puedo hacer?
