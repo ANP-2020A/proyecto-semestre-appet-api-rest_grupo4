@@ -25,6 +25,7 @@ class ServiceController extends Controller
     }
     public function delete(Service $service)
     {
+
         $service->delete(); return response()->json(null, 204);
     }
 }
