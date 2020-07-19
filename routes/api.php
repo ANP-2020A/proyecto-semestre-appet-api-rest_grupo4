@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 
 /*---------------ORDER---------------------------*/
+/*
 Route::get('orders', function() {
     return Order::all(); });
 
@@ -42,6 +43,13 @@ Route::delete('orders/{id}', function($id) {
     Order::find($id)->delete();
 
     return 204; });
+*/
+
+Route::get('orders', 'OrderController@index');
+Route::get('orders/{order}', 'OrderController@show');
+Route::post('orders', 'OrderController@store');
+Route::put('orders/{order}', 'OrderController@update');
+Route::delete('orders/{order}', 'OrderController@delete');
 
 /*---------------SERVICE---------------------------*/
 Route::get('services', function() {
