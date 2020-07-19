@@ -52,6 +52,7 @@ Route::put('orders/{order}', 'OrderController@update');
 Route::delete('orders/{order}', 'OrderController@delete');
 
 /*---------------SERVICE---------------------------*/
+/*
 Route::get('services', function() {
     return Service::all(); });
 Route::get('services/{id}', function($id) {
@@ -70,4 +71,11 @@ Route::delete('services/{id}', function($id) {
 
     Service::find($id)->delete();
 
-    return 204; });
+    return 204; });*/
+
+Route::get('services', 'ServiceController@index');
+Route::get('services/{service}', 'ServiceController@show');
+Route::post('services', 'ServiceController@store');
+Route::put('services/{service}', 'ServiceController@update');
+Route::delete('services/{service}', 'ServiceController@delete');
+
