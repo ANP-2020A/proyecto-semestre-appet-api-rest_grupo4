@@ -16,14 +16,14 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             //campos para la BDD
             $table->bigIncrements('id');
-            $table->string('nombre');
-            $table->string('apellido');
-            $table->string('cedula');
+            $table->string('name');
+            $table->string('lastName');
+            $table->string('idCard');
             $table->string('email')->unique();
-            $table->string('direccion');
-            $table->string('telefono');
-            $table->string('tipo_usuario');
-            $table->dateTime('fecha_registro');
+            $table->string('locate');
+            $table->string('phone');
+            $table->string('userType');
+            $table->dateTime('registrationDate');
             $table->string('password');
             $table->timestamps();
         });

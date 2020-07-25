@@ -19,7 +19,11 @@ class ServicesTableSeeder extends Seeder
         // Crear artículos ficticios en la tabla
         for($i = 0; $i < 50; $i++) {
             Service::create([
-                'tipo'=> $faker->jobTitle,
+                'title'=> $faker->text,
+                'type'=> $faker->jobTitle,
+                'locate'=> $faker->city,
+                'price'=> $faker->randomFloat(2,10,100),
+                'description'=> $faker->text,
             ]);
         }
     }
