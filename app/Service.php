@@ -7,6 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class Service extends Model
 {
-    protected $fillable = ['tipo','precio'];
+    protected $fillable = ['title','type','locate','price','description'];
 }
 

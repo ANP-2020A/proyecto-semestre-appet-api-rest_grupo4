@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,13 +28,13 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
 
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
-            'cedula' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'lastName' => 'required|string|max:255',
+            'idCard' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'direccion' => 'required|string|max:255',
-            'telefono' => 'required|string|max:10',
-            'tipo_usuario' => 'required|string|max:25',
+            'locate' => 'required|string|max:255',
+            'phone' => 'required|string|max:10',
+            'userType' => 'required|string|max:25',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
@@ -43,13 +44,13 @@ class UserController extends Controller
         $user = User::create([
 
 
-            'nombre' => $request->get('nombre'),
-            'apellido' => $request->get('apellido'),
-            'cedula' => $request->get('cedula'),
+            'name' => $request->get('name'),
+            'lastName' => $request->get('lastName'),
+            'idCard' => $request->get('idCard'),
             'email' => $request->get('email'),
-            'direccion' => $request->get('direccion'),
-            'telefono' => $request->get('telefono'),
-            'tipo_usuario' => $request->get('tipo_usuario'),
+            'locate' => $request->get('locate'),
+            'phone' => $request->get('phone'),
+            'userType' => $request->get('userType'),
             'password' => Hash::make($request->get('password')),
 
 

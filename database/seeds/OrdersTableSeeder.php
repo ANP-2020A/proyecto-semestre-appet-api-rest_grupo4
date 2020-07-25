@@ -19,10 +19,10 @@ class OrdersTableSeeder extends Seeder
     // Crear artículos ficticios en la tabla
     for($i = 0; $i < 50; $i++) {
     Order::create([
-        'fecha_pedido'=> $faker->dateTime,
-        'fecha_atencion'=> $faker->dateTime,
-        'descripcion'=> $faker->text,
-        'novedades'=> $faker->text,
+        'orderDate'=> $faker->dateTime,
+        'attentionDate'=> $faker->dateTime,
+        'description'=> $faker->text,
+        'news'=> $faker->text,
 
             ]);
         }

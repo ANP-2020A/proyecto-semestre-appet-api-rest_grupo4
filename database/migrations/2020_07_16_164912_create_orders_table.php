@@ -15,11 +15,11 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             //se crea todos los campos para la BDD
-            $table->bigIncrements('id_order');
-            $table->dateTime('fecha_pedido');
-            $table->dateTime('fecha_atencion');
-            $table->string('descripcion');
-            $table->string('novedades');
+            $table->bigIncrements('id');
+            $table->dateTime('orderDate');
+            $table->dateTime('attentionDate');
+            $table->string('description');
+            $table->string('news');
             $table->timestamps();
         });
     }
@@ -34,4 +34,4 @@ class CreateOrdersTable extends Migration
         Schema::dropIfExists('orders');
     }
 }
-    //chicos no puedo hacer?
+
