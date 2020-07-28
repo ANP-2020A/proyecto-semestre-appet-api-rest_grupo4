@@ -11,15 +11,29 @@ class CreateOrdersTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        /*Schema::create('orders', function (Blueprint $table) {
             //se crea todos los campos para la BDD
             $table->bigIncrements('id');
             $table->dateTime('orderDate');
             $table->dateTime('attentionDate');
             $table->string('description');
             $table->string('news');
+            $table->timestamps();
+        });*/
+        Schema::create('orders', function (Blueprint $table)
+        {
+            $table->bigIncrements('id');
+            $table->dateTime('orderDate');
+            $table->dateTime('attentionDate');
+            $table->string('description');
+            $table->string('news');
+            $table->unsignedBigInteger('service_id');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('restrict');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -34,4 +48,6 @@ class CreateOrdersTable extends Migration
         Schema::dropIfExists('orders');
     }
 }
+
+
 
