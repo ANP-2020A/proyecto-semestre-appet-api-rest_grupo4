@@ -2,6 +2,7 @@
 
 use App\Service;
 use Illuminate\Database\Seeder;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ServicesTableSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class ServicesTableSeeder extends Seeder
         Service::truncate();
 
         $faker = \Faker\Factory::create();
+
         // Crear artículos ficticios en la tabla
         for($i = 0; $i < 50; $i++) {
             Service::create([
