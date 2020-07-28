@@ -49,7 +49,8 @@ class ServicesTableSeeder extends Seeder
                     'locate'=> $faker->city,
                     'price'=> $faker->randomFloat(2,10,100),
                     'description'=> $faker->text,
-                    ]);
+                    'category_id' => $faker->numberBetween(1, 3),
+                ]);
             }
         }
     }
