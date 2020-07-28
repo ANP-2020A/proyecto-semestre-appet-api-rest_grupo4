@@ -56,4 +56,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany('App\Order');
     }
+
+    public function categories()     {
+        return $this->belongsToMany('App\Category')->as('qualification') ->withTimestamps();
+    }
+
 }
