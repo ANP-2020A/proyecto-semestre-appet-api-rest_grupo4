@@ -13,21 +13,7 @@ class ServicesTableSeeder extends Seeder
      */
     public function run()
     {
-        //Vaciar la tabla.
-        /*Service::truncate();
 
-        $faker = \Faker\Factory::create();
-
-        // Crear artículos ficticios en la tabla
-        for($i = 0; $i < 50; $i++) {
-            Service::create([
-                'title'=> $faker->text,
-                'type'=> $faker->jobTitle,
-                'locate'=> $faker->city,
-                'price'=> $faker->randomFloat(2,10,100),
-                'description'=> $faker->text,
-            ]);
-        }*/
         // Vaciar la tabla articles.
         Service::truncate();
         $faker = \Faker\Factory::create();
@@ -35,6 +21,7 @@ class ServicesTableSeeder extends Seeder
         // // iteramos sobre cada uno y simulamos un inicio de
         // // sesión con cada uno para crear artículos en su nombre
         $users = App\User::all();
+        $image_name = $faker->image('public/storage/services', 400, 300, null, false);
         foreach ($users as $user)
         {
             // iniciamos sesión con este usuario
@@ -50,6 +37,7 @@ class ServicesTableSeeder extends Seeder
                     'price'=> $faker->randomFloat(2,10,100),
                     'description'=> $faker->text,
                     'category_id' => $faker->numberBetween(1, 3),
+                    'image' => 'services/' . $image_name
                 ]);
             }
         }

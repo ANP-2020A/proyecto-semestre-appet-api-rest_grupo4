@@ -54,6 +54,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('users', 'UserController@getAuthenticatedUser');
 
         Route::get('services', 'ServiceController@index');
+        Route::get('services/{service}/image', 'ServiceController@image');
         Route::get('services/{service}', 'ServiceController@show');
         Route::post('services', 'ServiceController@store');
         Route::put('services/{service}', 'ServiceController@update');

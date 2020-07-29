@@ -6,6 +6,7 @@ use App\Service;
 use App\Http\Resources\Service as ServiceResources;
 use App\Http\Resources\ServiceCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 
 class ServiceController extends Controller
@@ -18,10 +19,12 @@ class ServiceController extends Controller
 
     public function show(Service $service)
     {
-
         return response()->json(new ServiceResources  ($service), 200);
     }
 
+    public function image(Service $service) {
+        return response()->download(public_path(Storage::url($service->image)), $service->title);
+    }
 
     public function store(Request $request)
     {
