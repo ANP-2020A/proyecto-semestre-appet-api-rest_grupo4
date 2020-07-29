@@ -31,10 +31,16 @@ class ServiceController extends Controller
             'locate'=> 'required ',
             'price'=> 'required ',
             'description'=> 'required',
-
+            'image' => 'required|image|dimensions:min_width=200,min_height=200',
         ]);
-        $service = Service::create($request->all());
-        return response()->json($service, 201);
+        //$service = Service::create($request->all());
+
+        $service = new Service($request->all());
+        $path = $request->image->store('public/services');
+
+        $service->image = $path;
+        $service->save();
+        return response()->json(new ServiceResources($service), 201);
     }
 
 
