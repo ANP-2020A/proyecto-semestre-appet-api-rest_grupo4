@@ -25,7 +25,16 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
-        $service = Service::create($request->all()); return response()->json($service, 201);
+        $validatedData = $request->validate([
+            'title' => 'required|string|unique:services|max:255',
+            'type' => 'required ',
+            'locate'=> 'required ',
+            'price'=> 'required ',
+            'description'=> 'required',
+
+        ]);
+        $service = Service::create($request->all());
+        return response()->json($service, 201);
     }
 
 
