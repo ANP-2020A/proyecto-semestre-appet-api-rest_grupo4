@@ -13,12 +13,14 @@ class ServiceController extends Controller
 {
     public function index()
     {
+        //$this->authorize('viewAny', Service::class);
         return new ServiceCollection(Service::paginate(10));
     }
 
 
     public function show(Service $service)
     {
+        $this->authorize('view', $service);
         return response()->json(new ServiceResources  ($service), 200);
     }
 
@@ -28,6 +30,8 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
+
+        $this->authorize('create', Service::class);
         $validatedData = $request->validate([
             'title' => 'required|string|unique:services|max:255',
             'type' => 'required ',
@@ -49,6 +53,7 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
+        $this->authorize('update',$service);
         $validatedData = $request->validate([
             'title' => 'required|string|unique:services|max:255',
             'type' => 'required ',
@@ -63,7 +68,8 @@ class ServiceController extends Controller
 
     public function delete(Service $service)
     {
-
-        $service->delete(); return response()->json(null, 204);
+        $this->authorize('delete',$service);
+        $service->delete();
+        return response()->json(null, 204);
     }
 }
