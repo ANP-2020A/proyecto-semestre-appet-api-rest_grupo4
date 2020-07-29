@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Service extends Model
 {
-    protected $fillable = ['title','type','locate','price','description'];
+    protected $fillable = ['title','type','locate','price','description','image'];
 
     public static function boot()
     {
