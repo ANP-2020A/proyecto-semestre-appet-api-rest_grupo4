@@ -47,43 +47,25 @@ Route::delete('orders/{id}', function($id) {
 
 Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@authenticate');
-Route::get('orders', 'OrderController@index');
 Route::get('services', 'ServiceController@index');
 
 Route::group(['middleware' => ['jwt.verify']], function() {
+
     Route::get('users', 'UserController@getAuthenticatedUser');
-    Route::get('orders', 'OrderController@index');
-    Route::get('orders/{order}', 'OrderController@show');
-    Route::post('orders', 'OrderController@store');
-    Route::put('orders/{order}', 'OrderController@update');
-    Route::delete('orders/{order}', 'OrderController@delete');
 
-    /*---------------SERVICE---------------------------*/
-    /*
-    Route::get('services', function() {
-        return Service::all(); });
-    Route::get('services/{id}', function($id) {
-        return Service::find($id); });
+        Route::get('services', 'ServiceController@index');
+        Route::get('services/{service}', 'ServiceController@show');
+        Route::post('services', 'ServiceController@store');
+        Route::put('services/{service}', 'ServiceController@update');
+        Route::delete('services/{service}', 'ServiceController@delete');
 
-    Route::post('services', function(Request $request) {
-        return Service::create($request->all()); });
 
-    Route::put('services/{id}', function(Request $request, $id) {
-        $service = Service::findOrFail($id);
-        $service->update($request->all());
 
-        return $service; });
 
-    Route::delete('services/{id}', function($id) {
-
-        Service::find($id)->delete();
-
-        return 204; });*/
-
-    Route::get('services', 'ServiceController@index');
-    Route::get('services/{service}', 'ServiceController@show');
-    Route::post('services', 'ServiceController@store');
-    Route::put('services/{service}', 'ServiceController@update');
-    Route::delete('services/{service}', 'ServiceController@delete');
+         Route::get('services/{service}/orders', 'OrderController@index');
+         Route::get('services/{service}/orders/{order}', 'OrderController@show');
+         Route::post('services/{service}/orders', 'OrderController@store');
+         Route::put('services/{service}/orders/{order}', 'OrderController@update');
+         Route::delete('services/{service}/orders/{order}', 'OrderController@delete');
 });
 

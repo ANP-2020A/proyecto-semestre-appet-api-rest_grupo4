@@ -40,7 +40,15 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
-        $service->update($request->all()); return response()->json($service, 200);
+        $validatedData = $request->validate([
+            'title' => 'required|string|unique:services|max:255',
+            'type' => 'required ',
+            'locate'=> 'required ',
+            'price'=> 'required ',
+            'description'=> 'required',
+        ]);
+        $service->update($request->all());
+        return response()->json($service, 200);
     }
 
 

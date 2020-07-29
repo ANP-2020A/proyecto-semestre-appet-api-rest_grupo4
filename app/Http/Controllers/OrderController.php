@@ -3,40 +3,48 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Service;
 use App\Http\Resources\Order as OrderResources;
-use App\Http\Resources\OrderCollection;
 use Illuminate\Http\Request;
-use JWTAuth;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Service $service)
     {
 
-        return new OrderCollection(Order::paginate(10));
+        return response()->json(OrderResources::collection($service->orders),200);
     }
 
-    public function show(Order $order)
+
+    public function show(Service $service, Order $order )
     {
-
-        return response()->json(new OrderResources($order), 200);
+        $order=$service->orders()->where('id',$order->id)->firstOrFail();
+        return response()->json($order,200);
     }
 
-    public function store(Request $request)
+
+    public function store(Request $request, Service $service)
     {
-
-        $order = Order::create($request->all());
-        return response()->json($order, 201);
+        $validatedData = $request->validate([
+            'orderDate'=> 'required',
+            'attentionDate'=>'required',
+            'description'=> 'required',
+            'news'=>'required',
+        ]);
+        $order=$service->orders()->save(new Order($request->all()));
+        return response()->json($order,200);
     }
+
+
+
 
     public function update(Request $request, Order $order)
     {
-        $order->update($request->all());
-        return response()->json($order, 200);
+       //
     }
 
-    public function delete(Order $order)
+    public function delete(Comment $comment)
     {
-        $order->delete(); return response()->json(null, 204);
+    //
     }
 }
