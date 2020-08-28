@@ -33,7 +33,7 @@ class ServiceController extends Controller
 
         $this->authorize('create', Service::class);
         $validatedData = $request->validate([
-            'title' => 'required|string|unique:services|max:255',
+            'title' => 'required|string|max:255',
             'type' => 'required ',
             'locate'=> 'required ',
             'price'=> 'required ',
@@ -55,7 +55,7 @@ class ServiceController extends Controller
     {
         $this->authorize('update',$service);
         $validatedData = $request->validate([
-            'title' => 'required|string|unique:services|max:255',
+            'title' => 'required|string|max:255',
             'type' => 'required ',
             'locate'=> 'required ',
             'price'=> 'required ',
