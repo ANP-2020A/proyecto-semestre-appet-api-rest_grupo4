@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Tymon\JWTAuth\Contracts\Providers\Auth;
 
 class User extends JsonResource
 {
@@ -22,7 +23,9 @@ class User extends JsonResource
             'locate' => $this->locate,
             'phone'=> $this->phone,
             'userType' => $this->userType,
+            //'credential_number' => $this->when(Auth::user()->isAdmin(),'secret-value'),
             'registrationDate' => $this->registrationDate,
+            'userable' => $this->userable,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             ];
