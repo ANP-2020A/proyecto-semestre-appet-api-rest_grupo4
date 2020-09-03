@@ -2,6 +2,8 @@
 
 use App\Category;
 use App\User;
+use App\Admin;
+use App\Provider;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,7 +20,8 @@ class UsersTableSeeder extends Seeder
         // no se vuelva lento.
         $password = Hash::make('123123');
 
-        User::create([
+        $admin =Admin::create(['credential_number'=>'1234567890']);
+        $admin->user()->create([
             'name' => 'Administrador',
             'lastName' => 'Admin',
             'idCard' => '12345ABCDE',
@@ -28,11 +31,16 @@ class UsersTableSeeder extends Seeder
             'userType' => 'Cliente',
             'registrationDate' => '2020.07.18',
             'password' => $password,
+            'role'=>'ROLE_ADMIN'
         ]);
 
         // Generar algunos usuarios para nuestra aplicacion
         for ($i = 0; $i < 10; $i++) {
-            $user =User::create([
+            $provider = Provider::create([
+                'service'=>$faker->jobTitle
+            ]);
+
+            $provider->user()->create([
                 'name' => $faker->name,
                 'lastName' => $faker->lastName,
                 'idCard' => $faker->uuid,
@@ -44,7 +52,7 @@ class UsersTableSeeder extends Seeder
                 'password' => $password,
             ]);
 
-            $user->categories()->saveMany(
+            $provider->user->categories()->saveMany(
                 $faker->randomElements(
                     array(
                         Category::find(1),
