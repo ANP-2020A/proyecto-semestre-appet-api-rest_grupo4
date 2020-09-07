@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Resources\User as UserResource;
+use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\JWTGuard;
 
 class UserController extends Controller
 {
@@ -19,17 +21,20 @@ class UserController extends Controller
         try {
             if (! $token = JWTAuth::attempt($credentials))
             {
-                return response()->json(['error' => 'invalid_credentials'], 400);
+                return response()->json(['message' => 'invalid_credentials'], 400);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response()->json(['message' => 'could_not_create_token'], 500);
         }
+
+            $user=JWTAuth::user();
+
         return response()->json(compact('token'));
     }
+
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-
+        $request->validate([
             'name' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
             'idCard' => 'required|string|max:255',
@@ -40,12 +45,8 @@ class UserController extends Controller
             'registrationDate'=>'required|date|max:25',
             'password' => 'required|string|min:6|confirmed',
             'service' => 'required|string',
-
         ]);
 
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
-        }
         $provider =Provider::create([
             'service'=> $request->get('service'),
         ]);
@@ -72,16 +73,31 @@ class UserController extends Controller
         try {
             if (! $user = JWTAuth::parseToken()->authenticate())
             {
-                return response()->json(['user_not_found'], 404);
+                return response()->json(['message'=>'user_not_found'], 404);
             }
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['token_expired'], $e->getStatusCode());
+            return response()->json(['message'=>'token_expired'], $e->getStatusCode());
 
         } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
+            return response()->json(['message'=>'token_invalid'], $e->getStatusCode());
         } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['token_absent'], $e->getStatusCode());
+            return response()->json(['message'=>'token_absent'], $e->getStatusCode());
         }
         return response()->json(new UserResource ($user), 200);
+    }
+
+    public function logout()
+    {
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+            return response()->json([
+                "status" => "success",
+                "message" => "User successfully logged out."
+            ], 200);
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(["message" => "No se pudo cerrar la
+            sesión."], 500);
+        }
     }
 }

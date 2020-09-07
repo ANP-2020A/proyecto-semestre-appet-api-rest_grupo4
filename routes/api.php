@@ -44,27 +44,34 @@ Route::delete('orders/{id}', function($id) {
 
     return 204; });
 */
+Route::group(['middleware' => ['cors']], function () { // <=== Añadir el middleware
 
-Route::post('register', 'UserController@register');
-Route::post('login', 'UserController@authenticate');
-Route::get('services', 'ServiceController@index');
+    Route::post('register', 'UserController@register');
+    Route::post('login', 'UserController@authenticate');
+    Route::get('services', 'ServiceController@index');
 
-Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::group(['middleware' => ['jwt.verify']], function () {
 
         Route::get('users', 'UserController@getAuthenticatedUser');
+        Route::post('logout', 'UserController@logout');
         Route::get('services/{service}/image', 'ServiceController@image');
 
+        //services
         //Route::get('services', 'ServiceController@index');
         Route::get('services/{service}', 'ServiceController@show');
         Route::post('services', 'ServiceController@store');
         Route::put('services/{service}', 'ServiceController@update');
         Route::delete('services/{service}', 'ServiceController@delete');
 
+        //orders
 
-         Route::get('services/{service}/orders', 'OrderController@index');
-         Route::get('services/{service}/orders/{order}', 'OrderController@show');
-         Route::post('services/{service}/orders', 'OrderController@store');
-         Route::put('services/{service}/orders/{order}', 'OrderController@update');
-         Route::delete('services/{service}/orders/{order}', 'OrderController@delete');
+        Route::get('services/{service}/orders', 'OrderController@index');
+        Route::get('services/{service}/orders/{order}', 'OrderController@show');
+        Route::post('services/{service}/orders', 'OrderController@store');
+        Route::put('services/{service}/orders/{order}', 'OrderController@update');
+        Route::delete('services/{service}/orders/{order}', 'OrderController@delete');
+    });
+
 });
+
 
