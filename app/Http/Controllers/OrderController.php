@@ -30,10 +30,10 @@ class OrderController extends Controller
         //$this->authorize('create', Order::class);
         //$validatedData =
             $request->validate([
-            'orderDate'=> 'required',
-            'attentionDate'=>'required',
-            'description'=> 'required',
-            'news'=>'required',
+            'orderDate'=> 'required|string',
+            'attentionDate'=>'required|string',
+            'description'=> 'required|string',
+            'news'=>'required|string',
         ]);
         $order=$service->orders()->save(new Order($request->all()));
         Mail::to($service->user)->send(new NewOrder($order));
