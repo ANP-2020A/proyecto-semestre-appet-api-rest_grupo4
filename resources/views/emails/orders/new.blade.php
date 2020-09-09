@@ -4,6 +4,7 @@
 
         <p>{{$order->description}}</p>
         <p>{{$order->news}}</p>
+
         <img src="{{ $message->embed( 'storage/' . $order->service->image) }}">
     </body>
 </html>

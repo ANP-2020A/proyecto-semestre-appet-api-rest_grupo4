@@ -6,10 +6,11 @@ use App\Provider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use JWTAuth;
+//use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\JWTGuard;
 
 class UserController extends Controller
@@ -29,7 +30,7 @@ class UserController extends Controller
 
             $user=JWTAuth::user();
 
-        return response()->json(compact('token'));
+        return response()->json(compact('token','user'));
     }
 
     public function register(Request $request)
