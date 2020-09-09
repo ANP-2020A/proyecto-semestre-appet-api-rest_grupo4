@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'ttl' => env('JWT_TTL', 1),
+    'ttl' => env('JWT_TTL', 15),
     //preguntar ing, si es 1 o 15
 
     /*

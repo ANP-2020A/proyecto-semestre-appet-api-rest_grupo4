@@ -3,12 +3,15 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use JWTAuth;
+//use JWTAuth;
 use Exception;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+//use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+use Tymon\JWTAuth\JWTAuth;
+
 //use Tymon\JWTAuth\JWTAuth;
 
 class JwtMiddleware extends BaseMiddleware
@@ -32,16 +35,12 @@ class JwtMiddleware extends BaseMiddleware
 //            if($payload['csrf-token'] != $request->headers->get('csrf-token')) throw new TokenMismatchException();
 //            Auth::loginUsingId($payload['sub']);
         } catch (TokenExpiredException $e) {
-            return response()->json(['error' => 'token_expired'], 401);
-
             try {
                 $refreshed_token = JWTAuth::refresh(JWTAuth::getToken());
                 $user = JWTAuth::setToken($refreshed_token)->toUser();
                 return response()->json(['message' => 'token_expired', 'refreshed_token' => $refreshed_token], 401);
 
             } catch (JWTException $e) {
-//                return response()->json(['token_expired'], $e->getStatusCode());
-
                 return response()->json([
                     'message' => 'token_not_refreshed'
                 ], 401);
@@ -49,13 +48,13 @@ class JwtMiddleware extends BaseMiddleware
 
 //            return response()->json(['error' => 'token_expired'], 401);
         } catch (TokenInvalidException $e) {
-            return response()->json(['error' => 'token_invalid'], 401);
+
             return response()->json(['message' => 'token_invalid'], 401);
-            return response()->json(['error' => 'token_absent'], 401);
+
         } catch (JWTException $e) {
             return response()->json(['message' => 'token_absent'], 401);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+
             return response()->json(['message' => $e->getMessage()], 500);
         }
         return $next($request);
