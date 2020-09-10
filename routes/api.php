@@ -52,7 +52,7 @@ Route::group(['middleware' => ['cors']], function () { // <=== Añadir el middle
 
     Route::group(['middleware' => ['jwt.verify']], function () {
 
-        Route::get('users', 'UserController@getAuthenticatedUser');
+        Route::get('user', 'UserController@getAuthenticatedUser');
         Route::post('logout', 'UserController@logout');
         Route::get('services/{service}/image', 'ServiceController@image');
 

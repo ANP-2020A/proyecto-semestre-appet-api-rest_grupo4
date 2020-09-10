@@ -14,7 +14,7 @@ class ServiceController extends Controller
     public function index()
     {
         //$this->authorize('viewAny', Service::class);
-        return new ServiceCollection(Service::paginate(10));
+        return new ServiceCollection(Service::paginate(12));
     }
 
 
